@@ -1,0 +1,84 @@
+<head>
+    <title>tree</title>
+</head>
+
+<body>
+{{> utils}}
+<hr>
+
+{{> treeStart}}
+<hr>
+
+</body>
+
+<template name="utils">
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Utils</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-3"><button id="clr" class="btn btn-danger">clearCollection</button></div>
+                <div class="col-sm-3"> <button id="addTemplate" class="btn btn-success">addTemplate</button></div>
+                <div class="col-sm-3"><button id="add10WidthTemplate" class="btn btn-success">add10WidthTemplate</button></div>
+                <div class="col-sm-3"><div class="input-group">
+                    <input type="text" class="form-control" id="textnode" placeholder="nodename"/>
+                    <span class="input-group-btn"><button id="add" class="btn btn-success" type="button">
+                        addNullParrentNode
+                    </button></span>
+                </div></div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</template>
+
+<template name="treeStart">
+    <div id="tree" style="">
+        <h2 class="panel">Tree of Company Earnings</h2>
+        <ul id="treeData" style="display: block;">
+            {{#each collectionFind }}
+                {{> treeNode}}
+            {{/each }}
+        </ul>
+    </div>
+</template>
+
+<template name="treeNode">
+    <li id="{{_id}}" title="{{name}}">
+        {{#if editValue}}
+            <input type="text" id="newValueOfName" value="{{name}}"/>
+        {{else}}
+            <span id="companyName">
+                {{name}} <span class="badge" title="number of children">{{childrenCount}}</span></span>
+        {{/if}}
+        {{#if editValueEarnings}}
+            <input type="text" id="newValueOfEarnings" value="{{earnings}}"/>
+        {{else}}
+            <span id="earnings">{{earnings}}$</span>
+        {{/if}}
+        {{#if childrenCount}}
+            <span>{{totalEarnings}}$</span>
+        {{/if}}
+        <button id="addHere" class="glyphicon glyphicon-plus btn-success" title="Add child here"></button>
+        <button id="deleteThis" class="glyphicon glyphicon-remove btn-danger" title="Remove With Childs"></button>
+        {{#if childrenCount}}
+            <ul>
+                {{#each children}}
+                    {{> treeNode}}
+                {{/each}}
+            </ul>
+        {{/if}}
+    </li>
+
+</template>
+
+
